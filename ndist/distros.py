@@ -18,6 +18,9 @@ class Distro:
     def sample(self, shape):
         return self.SAMPLER(*self.args, **self.kwargs, size=shape)
 
+    def __call__(self, shape):
+        return self.sample(shape)
+
     def _arith(self, op, other):
         dist = Distro()
         if isinstance(other, Distro):
@@ -80,3 +83,6 @@ class Poisson(Distro):
 
 class Sample(Distro):
     SAMPLER = np.random.sample
+
+class Cauchy(Distro):
+    SAMPLER = np.random.standard_cauchy
