@@ -22,3 +22,8 @@ if __name__ == '__main__':
     print("\nPower(8)")
     print(samples)
     print(samples.mean(), samples.std())
+
+    dist = distros.Normal(loc=100, scale=10) + 5
+    samples = dist.sample(10000)
+    print("\nNormal(100, 10) + 5")
+    print(samples.mean(), samples.std())

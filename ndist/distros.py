@@ -21,6 +21,22 @@ class Distro:
         except TypeError:
             return self.SAMPLER(*self.args, **self.kwargs, size=shape)
 
+    def _arith(self, op, other):
+        dist = Distro()
+        dist.SAMPLER = lambda shape: op(self.sample(shape), other)
+        return dist
+
+    def __add__(self, other):
+        return self._arith(lambda a, b: a + b, other)
+
+    def __sub__(self, other):
+        return self._arith(lambda a, b: a - b, other)
+
+    def __mul__(self, other):
+        return self._arith(lambda a, b: a * b, other)
+    
+    def __div__(self, other):
+        return self._arith(lambda a, b: a / b, other)
 
 
 class Normal(Distro):
