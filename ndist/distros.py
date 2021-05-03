@@ -54,10 +54,17 @@ class Distro:
 class Normal(Distro):
     SAMPLER = np.random.normal
 
-
 class Uniform(Distro):
     SAMPLER = np.random.uniform
 
-
 class Power(Distro):
     SAMPLER = np.random.power
+
+class Pareto(Distro):
+    SAMPLER = np.random.pareto
+
+class Poisson(Distro):
+    SAMPLER = np.random.poisson
+
+class Sample(Distro):
+    SAMPLER = np.random.sample
