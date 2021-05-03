@@ -23,7 +23,10 @@ class Distro:
 
     def _arith(self, op, other):
         dist = Distro()
-        dist.SAMPLER = lambda shape: op(self.sample(shape), other)
+        if isinstance(other, Distro):
+            dist.SAMPLER = lambda shape: op(self.sample(shape), other.sample(shape))
+        else:
+            dist.SAMPLER = lambda shape: op(self.sample(shape), other)
         return dist
 
     def __add__(self, other):
