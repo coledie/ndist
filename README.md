@@ -1,2 +1,3 @@
 # ndist
-ndarray based distribution library because single point estimates are for suckers.
+
+ndarray based distribution data structure because point estimates are weak.
