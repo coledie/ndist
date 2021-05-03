@@ -16,17 +16,14 @@ class Distro:
         self.kwargs = kw
 
     def sample(self, shape):
-        try:
-            return self.SAMPLER(*self.args, **self.kwargs, shape=shape)
-        except TypeError:
-            return self.SAMPLER(*self.args, **self.kwargs, size=shape)
+        return self.SAMPLER(*self.args, **self.kwargs, size=shape)
 
     def _arith(self, op, other):
         dist = Distro()
         if isinstance(other, Distro):
-            dist.SAMPLER = lambda shape: op(self.sample(shape), other.sample(shape))
+            dist.SAMPLER = lambda size: op(self.sample(size), other.sample(size))
         else:
-            dist.SAMPLER = lambda shape: op(self.sample(shape), other)
+            dist.SAMPLER = lambda size: op(self.sample(size), other)
         return dist
 
     def __add__(self, other):
@@ -52,6 +49,18 @@ class Distro:
     
     def __idiv__(self, other):
         return self / other
+
+
+class Joint(Distro):
+    """
+    Joint distribution.
+    """
+
+    def __init__(self, distros):
+        self.SAMPLER = distros
+
+    def sample(self, shape):
+        return np.stack([dist.sample(shape) for dist in self.SAMPLER], axis=0)
 
 
 class Normal(Distro):
