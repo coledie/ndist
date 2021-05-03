@@ -27,3 +27,10 @@ if __name__ == '__main__':
     samples = dist.sample(10000)
     print("\nNormal(100, 10) + 5")
     print(samples.mean(), samples.std())
+
+    dist = distros.Normal(loc=100, scale=10)
+    dist *=5
+    samples = dist.sample((5, 5))
+    print("\nNormal(100, 10) * 5")
+    print(samples)
+    print(samples.mean(), samples.std())

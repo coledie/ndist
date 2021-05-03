@@ -29,14 +29,26 @@ class Distro:
     def __add__(self, other):
         return self._arith(lambda a, b: a + b, other)
 
+    def __iadd__(self, other):
+        return self + other
+
     def __sub__(self, other):
         return self._arith(lambda a, b: a - b, other)
 
+    def __isub__(self, other):
+        return self - other
+
     def __mul__(self, other):
         return self._arith(lambda a, b: a * b, other)
-    
+
+    def __imul__(self, other):
+        return self * other
+
     def __div__(self, other):
         return self._arith(lambda a, b: a / b, other)
+    
+    def __idiv__(self, other):
+        return self / other
 
 
 class Normal(Distro):
